@@ -9,3 +9,5 @@ pip install jnius
 
 Converts lon lat to Build The Earth projection and vise versa, 
 Calculates .obj vertex to Build The Earth projection.
+
+By Oganexon
