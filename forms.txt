@@ -24,6 +24,11 @@
     double ABx = top_right[0] - top_left[0];		// diff mc x top left  - top right coord (x dir)
     double ACx = bot_left[0] - top_left[0];			// diff mc x top left  - bot left coord (z dir)
 
+// 	if ( < 0 ) then ??? etc.
+//    double Amz = top_left[1]-512; // ????
+//    double Amz = top_left[1]-511; // ????
+//    double ABz = top_left[1] - top_right[1] ; // ????
+
     double Amz = top_left[1];						// mc top left y coord
     double ABz = top_right[1] - top_left[1];		// diff mc z top_left - top right coord (x dir)
     double ACz = bot_left[1] - top_left[1];			// diff my z top left - bot left coord (z dir)
