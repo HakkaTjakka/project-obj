@@ -1,0 +1,42 @@
+    glm::dvec2 top_left(3302480.6863125535, -5334572.906513852);   // top_left  = projection.fromGeo(6.822509765625,52.2509765625)
+    glm::dvec2 top_right(3312756.4245311604, -5331483.703731423);  // top_right = projection.fromGeo(6.96533203125, 52.2509765625)
+    glm::dvec2 bot_left(3300154.6704858197, -5326818.811974641);   // bot_left  = projection.fromGeo(6.822509765625,52.18505859375)
+    glm::dvec2 bot_right(3310446.4741736553, -5323728.268546224);  // bot_right = projection.fromGeo(6.96533203125, 52.18505859375)
+
+    double blocks_x=sqrt( (top_right.x-top_left.x)*(top_right.x-top_left.x)  +  (top_right.y-top_left.y)*(top_right.y-top_left.y) );
+    double block_scale_x=blocks_x/(bmax_total[1]-bmin_total[1]);
+    printf("BLOCKS X=%lf   SCALE=%lf\n",blocks_x,block_scale_x);
+
+    double blocks_z=sqrt( (top_left.x-bot_left.x)*(top_left.x-bot_left.x)  +  (top_left.y-bot_left.y)*(top_left.y-bot_left.y) );
+    double block_scale_z=blocks_z/(bmax_total[2]-bmin_total[2]);
+    printf("BLOCKS Z=%lf   SCALE=%lf\n",blocks_z,block_scale_z);
+
+    double block_scale_avg=(block_scale_x + block_scale_z)/2.0;
+    printf("BLOCKS SCALE AVERAGE=%lf\n",block_scale_avg);
+
+    double Avx = bmin_total[1];						// minimum/maximum x/z coords belonging to top left (origin) x, google 3d coords (adapted, rotated, vertex x=up(mc y), region x=vertex y, region z=vertex z
+    double ABv = bmax_total[1] - bmin_total[1];		// diff (mc) x, top left - top right
+
+    double Avz = bmax_total[2];						// origin (mc) z, bottom z
+    double ACv = -(bmax_total[2] - bmin_total[2]);	// mirror / upside down, y+ = up ?
+
+    double Amx = top_left[0];						// mc top left x coord
+    double ABx = top_right[0] - top_left[0];		// diff mc x top left  - top right coord (x dir)
+    double ACx = bot_left[0] - top_left[0];			// diff mc x top left  - bot left coord (z dir)
+
+    double Amz = top_left[1];						// mc top left y coord
+    double ABz = top_right[1] - top_left[1];		// diff mc z top_left - top right coord (x dir)
+    double ACz = bot_left[1] - top_left[1];			// diff my z top left - bot left coord (z dir)
+	
+	for every vertex:
+                double dABv = (vertex.y - Avx) / ABv;
+                double dACv = (vertex.z - Avz) / ACv;
+
+                double m_x = Amx  +  dABv * ABx + dACv * ACx;
+                double m_z = Amz  +  dABv * ABz + dACv * ACz;
+
+                vertex.x=(vertex.x-bmin_total[0])*block_scale_avg;
+                vertex.y=m_x;
+                vertex.z=m_z;
+	
+https://drive.google.com/file/d/1hlsXb_pQeIlB5NgTTSYrTFGzJBTpx0Eo/view?usp=sharing
