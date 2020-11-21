@@ -42,5 +42,7 @@ https://www.jamf.com/jamf-nation/articles/348/configuring-the-java_home-and-jre_
 https://www.java.com/nl/download/
 https://stackoverflow.com/questions/20201868/importerror-dll-load-failed-the-specified-module-could-not-be-found
 https://stackoverflow.com/questions/15821343/download-or-generate-msvcp71-dll
+https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads
+https://www.microsoft.com/en-us/download/confirmation.aspx?id=5555
 
 
